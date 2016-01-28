@@ -1,12 +1,13 @@
 'use strict';
 
 class BinaryTree {
+
 	constructor() {
 		this.root = null;
 	}
 
 	insert(data) {
-		Node node = new Node(data, null, null);
+		var node = new Node(data, null, null);
 
     var current;
     if (this.root === null){
@@ -43,6 +44,8 @@ class BinaryTree {
                 }
             }
 	}
+}
+
 
 	contains(data) {
 
