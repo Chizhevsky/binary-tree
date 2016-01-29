@@ -14,34 +14,26 @@ class BinaryTree {
     } else {
       current = this.root;
       while(true) {
-        //if the new value is less than this node's value, go left
         if (data < current.data) {
-            //if there's no left, then the new node belongs there
             if (current.left === null) {
                 current.left = node;
                 break;
             } else {
                 current = current.left;
-        }
-
-        //if the new value is greater than this node's value, go right
-      } else if (data > current.data) {
-
-            //if there's no right, then the new node belongs there
+        		}
+      	} else if (data > current.data) {
             if (current.right === null) {
                 current.right = node;
                 break;
             } else {
                 current = current.right;
             }
-
-        //if the new value is equal to the current one, just ignore
         } else {
             break;
         }
-    }
+    	}
+		}
 	}
-}
 
 
 	contains(data) {
@@ -60,7 +52,47 @@ class BinaryTree {
 	}
 
 	remove(data) {
-
+		var del, prev_del, r, prev_r;
+		del = this.root;
+		prev_del = null;
+		while (del && del.data != data ) {
+			prev_del = del;
+			if (del.data > data) {
+				del = del.left;
+			} else {
+				del = del.right;
+			}
+		}
+		if (!del) {
+			return false;
+		}
+		if (!del.right) {
+			r = del.left;
+		}	else if (!del.left) {
+			r = del.right;
+		} else {
+			prev_r = del;
+			r = del.left;
+			while (r.right) {
+				prev_r = r;
+				r = r.right;
+			}
+			if (prev_r == del) { //!
+				r.right = del.right;
+			} else {
+				r.right = del.right;
+				prev_r.right = r.left;
+				r.left = prev_r;
+			}
+		}
+		if (del == this.root){
+			this.root = r;
+		} else if (del.data < prev_del.data){
+			prev_del.left  = r;
+		} else {
+			prev_del.right = r;
+		}
+		//free (del);
 	}
 
 	size() {
@@ -68,6 +100,12 @@ class BinaryTree {
 	}
 
 	isEmpty() {
-
+		var current = this.root;
+		if (current === null) {
+			return isEmp;
+		} else {
+			isEmp = false;
+			return isEmp;
+		}
 	}
 }
