@@ -92,20 +92,37 @@ class BinaryTree {
 		} else {
 			prev_del.right = r;
 		}
-		//free (del);
+	}
+
+	traverse (process) {
+		function inOrder (node){
+			if (node){
+				if (node.left !== null){
+					inOrder (node.left);
+				}
+				process.call (this, node);
+				if (node.right !== null) {
+					inOrder (node.right);
+				}
+			}
+		}
+		inOrder (this.root);
 	}
 
 	size() {
-
+		var length = 0;
+		this.traverse (function(node){
+			length++;
+		});
+		return length;
 	}
 
 	isEmpty() {
 		var current = this.root;
 		if (current === null) {
-			return isEmp;
+			return true;
 		} else {
-			isEmp = false;
-			return isEmp;
+			return false;
 		}
 	}
 }
